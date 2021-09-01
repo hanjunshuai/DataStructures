@@ -6,21 +6,29 @@ public class DoubleLinkedListDemo {
         HeroNode heroNode2 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode heroNode3 = new HeroNode(3, "吴用", "智多星");
         HeroNode heroNode4 = new HeroNode(4, "林冲", "豹子头");
+        HeroNode heroNode5 = new HeroNode(5, "公孙胜", "入云龙");
 
         DoubleLinkedList doubleLinkedList = new DoubleLinkedList();
         doubleLinkedList.show();
-        doubleLinkedList.add(heroNode1);
-        doubleLinkedList.add(heroNode2);
-        doubleLinkedList.add(heroNode3);
-        doubleLinkedList.add(heroNode4);
-        System.out.println("原始链表～～～");
-        doubleLinkedList.show();
-
+//        doubleLinkedList.add(heroNode1);
+//        doubleLinkedList.add(heroNode2);
+//        doubleLinkedList.add(heroNode3);
+//        doubleLinkedList.add(heroNode4);
+//        System.out.println("原始链表～～～");
+//        doubleLinkedList.show();
 //        System.out.println("修改节点～～～");
 //        doubleLinkedList.update(new HeroNode(1, "song", "boss"));
-        System.out.println("删除节点");
-        doubleLinkedList.delete(4);
-        doubleLinkedList.delete(1);
+//        System.out.println("删除节点");
+//        doubleLinkedList.delete(4);
+//        doubleLinkedList.delete(1);
+//        doubleLinkedList.show();
+
+        doubleLinkedList.addByOrder(heroNode3);
+        doubleLinkedList.addByOrder(heroNode2);
+        doubleLinkedList.addByOrder(heroNode4);
+        doubleLinkedList.addByOrder(heroNode5);
+        doubleLinkedList.addByOrder(heroNode1);
+        doubleLinkedList.addByOrder(heroNode1);
         doubleLinkedList.show();
     }
 }
@@ -108,10 +116,10 @@ class DoubleLinkedList {
      * 第二种添加，根据排名将英雄插入指定位置
      */
     public void addByOrder(HeroNode node) {
-       HeroNode temp = head;
+        HeroNode temp = head;
         // 标志添加的编号是否存在，默认为false
         boolean flag = false;
-        while (true) {
+        while (temp.next != null) {
             // temp 已经在链表的最后
             if (temp.next == null) {
                 break;
@@ -133,6 +141,10 @@ class DoubleLinkedList {
             System.out.println("准备插入的node已经存在～～～");
         } else {
             node.next = temp.next;
+            node.pre = temp;
+            if (temp.next != null) {
+                temp.next.pre = node;
+            }
             temp.next = node;
         }
     }

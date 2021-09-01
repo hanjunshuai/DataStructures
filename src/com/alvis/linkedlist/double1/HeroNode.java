@@ -8,14 +8,14 @@ public class HeroNode {
     public String name;
     public String nikeName;
     // 指向下一个节点
-    public HeroNode next;
+    public HeroNode next = null;
     // 指向上一个节点
-    public HeroNode pre;
+    public HeroNode pre = null;
 
     public HeroNode() {
     }
 
-    public HeroNode(int no, String name, String nikeName){
+    public HeroNode(int no, String name, String nikeName) {
         this.no = no;
         this.name = name;
         this.nikeName = nikeName;
