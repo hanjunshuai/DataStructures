@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @program: DataStructures
- * @description:
+ * @description: 使用数组模拟栈
  * @author: alvis
  * @create: 2021-09-14 11:04
  */
@@ -31,7 +31,7 @@ public class ArrayStackDemo {
                     break;
                 case 's':
                     try {
-//                        stack.show();
+                        stack.show();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -58,12 +58,15 @@ public class ArrayStackDemo {
     }
 }
 
+/**
+ * 定义一个ArrayStack表示栈
+ */
 class ArrayStack {
     private int maxSize; // 栈的大小
     private int[] stack; // 数组模拟栈,数据存放在数组中
     private int top = -1;// top 表示栈顶，初始化为-1
 
-    // 构造器
+    // 构造器（栈的大小）
     public ArrayStack(int maxSize) {
         this.maxSize = maxSize;
         stack = new int[maxSize];
@@ -79,6 +82,7 @@ class ArrayStack {
         return top == -1;
     }
 
+    // 入栈
     public void push(int num) {
         if (isFull()) {
             throw new RuntimeException("已满");
@@ -86,6 +90,7 @@ class ArrayStack {
         stack[++top] = num;
     }
 
+    // 出栈
     public int pop() {
         if (isEmpty()) {
             throw new RuntimeException("栈内已空~~~");
@@ -93,12 +98,14 @@ class ArrayStack {
         return stack[top--];
     }
 
-//    public void show() {
-//        if (isEmpty()) {
-//            throw new RuntimeException("栈内已空~~~");
-//        }
-//        for (int i = top; i > 0; i--) {
-//            System.out.println(stack[i]);
-//        }
-//    }
+    // 显示栈的内容，
+    // 遍历栈，需要从栈顶开始显示数据
+    public void show() {
+        if (isEmpty()) {
+            throw new RuntimeException("栈内已空~~~");
+        }
+        for (int i = top; i >= 0; i--) {
+            System.out.println(stack[i]);
+        }
+    }
 }
