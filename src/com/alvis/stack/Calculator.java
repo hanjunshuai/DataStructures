@@ -2,7 +2,7 @@ package com.alvis.stack;
 
 public class Calculator {
     public static void main(String[] args) {
-        String expression = "3+2*6-2";
+        String expression = "10+2*6-22";
         ArrayStack2 numStack = new ArrayStack2(10);
         ArrayStack2 operStack = new ArrayStack2(10);
 
@@ -12,6 +12,7 @@ public class Calculator {
         int oper = 0;
         int res = 0;
         char ch = ' '; // 将每次扫描得到的char保存到ch
+        String keepNum = ""; // 用于拼接多位数
 
         while (true) {
             ch = expression.substring(index, index + 1).charAt(0);
@@ -39,7 +40,20 @@ public class Calculator {
                 }
             } else {
                 // 如果是数字，直接入栈
-                numStack.push(ch - 48);
+                //  numStack.push(ch - 48);
+                // 多位数处理，需要想expression的表达式的index后在看一位，如果是符号才入栈
+                keepNum += ch;
+                // 若ch已经是expression的最后一位，就直接入栈
+                if (index == expression.length() - 1) {
+                    numStack.push(Integer.parseInt(keepNum));
+                } else {
+                    // 判断下一个字符，如果是数字，就继续扫描，否则入栈
+                    if (operStack.isOper(expression.substring(index + 1, index + 2).charAt(0))) {
+                        // 若是操作符，则入栈
+                        numStack.push(Integer.parseInt(keepNum));
+                        keepNum = "";
+                    }
+                }
             }
             index++;
             if (index >= expression.length()) {
